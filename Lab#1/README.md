@@ -4,6 +4,7 @@ Windows Programming
 
 LAB#1 Vdovicenco Alexandru
 
+
 In order to get this GUI application to work, I didn’t use something special. Development of this “application” was based on Programming Windows by Charlez Petzold, using standard libraries and Visual Studio as IDE.
 
 Our basic task was present in the middle of the screen the given phrase, and this was achieved by using standard function for drawing text “DrawText()”, with specific parameters for aligning our text in the middle of screen. Also at window resize our text must remain in the same position, and this is why, the code which implements this behavior is placed at case “WM_PAINT” in switch menu which handle events. Case “WM_PAINT” is handled every time when window becomes invalid.
