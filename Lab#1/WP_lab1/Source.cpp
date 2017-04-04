@@ -81,6 +81,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	static int random_color = 255;
 	int random_r, random_g, random_b;
 	static int color_r = 255, color_g, color_b;
+	static int background_r = 0, background_g = 0, background_b = 0;
 	static int font_size = 46;
 
 	srand(time(NULL));   // should only be called once
@@ -109,7 +110,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		DrawText(hdc, TEXT("Done with Pride and Prejudice by student Vdovicenco A.!"), -1, &rect,
 			DT_SINGLELINE | DT_CENTER | DT_VCENTER);
 		SetTextColor(hdc, RGB(color_r, color_g, color_b));
-		SetBkColor(hdc, RGB(0, 0, 0));
+		SetBkColor(hdc, RGB(background_r, background_g, background_b));
 		new_font = CreateFont(font_size, 0, 0, 0,
 			FW_NORMAL, TRUE, FALSE, FALSE,
 			ANSI_CHARSET, OUT_DEFAULT_PRECIS,
@@ -174,6 +175,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			MoveWindow(hwnd, rect.left, rect.top, rect.right - rect.left,
 				rect.bottom - rect.top, TRUE);
 			break;
+		case 4:
+			GetClientRect(hwnd, &rect);
+			random_r = rand() % 256;
+			random_g = rand() % 256;
+			random_b = rand() % 256;
+			//random_color = random_int;
+			background_r = random_r;
+			background_g = random_g;
+			background_b = random_b;
+			GetClientRect(hwnd, &rect);
+			InvalidateRect(hwnd, &rect, TRUE);
+			break;
 		}
 
 
@@ -196,6 +209,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SelectObject(draw_struct->hDC, old_font);
 		DeleteObject(new_font);
 		return 0;
+	case WM_SYSCOMMAND:
+		switch (wParam)
+		{
+		case SC_MAXIMIZE:
+			SendMessage(hwnd, WM_COMMAND, 0, lParam);
+			break;
+		case SC_MINIMIZE:
+			SendMessage(hwnd, WM_COMMAND, 4, lParam);
+			break;
+		}
 	case WM_SIZE:
 		if (wParam == 100)
 		{
