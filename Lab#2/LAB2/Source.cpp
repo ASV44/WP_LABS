@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 	static TCHAR szAppName[] = TEXT("LAB2");
 	HACCEL hAccel;
-	HMENU hMenu;
+	HMENU hMenu, hMenuSys;
 	HWND hwnd;
 	MSG msg;
 	WNDCLASS wndclass;
@@ -36,8 +36,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	wndclass.cbClsExtra = 0;
 	wndclass.cbWndExtra = 0;
 	wndclass.hInstance = hInstance;
-	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndclass.hIcon = (HICON)LoadImage(NULL, "icon1.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED);
+	wndclass.hCursor = LoadCursor(NULL, MAKEINTRESOURCE(IDC_CURSOR1));
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndclass.lpszMenuName = NULL;
 	wndclass.lpszClassName = szAppName;
@@ -47,6 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			szAppName, MB_ICONERROR);
 		return 0;
 	}
+	hMenuSys = LoadMenu(hInstance, MAKEINTRESOURCE(IDR_MENU1));
 	hwnd = CreateWindow(szAppName, // window class name
 		TEXT("Lab #2"), // window caption
 		WS_OVERLAPPEDWINDOW, // window style
@@ -55,7 +56,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		CW_USEDEFAULT, // initial x size
 		CW_USEDEFAULT, // initial y size
 		NULL, // parent window handle
-		NULL, // window menu handle
+		hMenuSys, // window menu handle
 		hInstance, // program instance handle
 		NULL); // creation parameters
 	hMenu = GetSystemMenu(hwnd, FALSE);
@@ -105,6 +106,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	HWND scrollColor;
 	static HWND hwndList, hwndText;
 	int length;
+	HMENU hMenu;
 	//srand(time(NULL));   // should only be called once
 	//sprintf_s(str, "Message %f \n", (float) message);
 	//OutputDebugString(str);
@@ -174,6 +176,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		GetWindowRect(hwnd, &rect);
 		cxClient = LOWORD(lParam);
 		cyClient = HIWORD(lParam);
+		hMenu = GetMenu(hwnd);
 		switch (LOWORD(wParam))
 		{
 		case 0:
@@ -217,7 +220,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			MoveWindow(hwnd, rect.left, rect.top, rect.right - rect.left,
 				rect.bottom - rect.top, TRUE);
 			break;
-
+		case ID_MENU_ABOUT:
+			MessageBox(hwnd, TEXT("LAB #2 on Windows Programming\n")
+				TEXT("\n\nYou Should Cry, This is Windows API!"),
+				TEXT("LAB2"), MB_OK | MB_ICONINFORMATION);
+			break;
+		case ID_MENU_HELP:
+			MessageBox(hwnd, TEXT("This is LAB at Tehnical University Of Moldova")
+				TEXT("\n\n No one will help you"),
+				TEXT("LAB2"), MB_OK | MB_ICONINFORMATION);
+			break;
+		case ID_MENU_DELETE:
+			SetMenu(hwnd, NULL);
+			break;
 		}
 		return 0;
 	case WM_DRAWITEM:
@@ -252,9 +267,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return 0;
 		}
 		break;
-	case WM_CLOSE:
-		//SendMessage(hwnd, WM_COMMAND, 2, lParam);
-		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
