@@ -219,21 +219,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			SendMessage(hwnd, WM_COMMAND, 4, lParam);
 			break;
 		}
-	case WM_SIZE:
-		if (wParam == 100)
-		{
-			GetWindowRect(hwnd, &rect);
-			cxClient = LOWORD(lParam);
-			cyClient = HIWORD(lParam);
-
-			rect.left -= cxClient / 20;
-			rect.right += cxClient / 20;
-			rect.top -= cyClient / 20;
-			rect.bottom += cyClient / 20;
-
-			MoveWindow(hwnd, rect.left, rect.top, rect.right - rect.left,
-				rect.bottom - rect.top, TRUE);
-		}
 		return 0;
 	case WM_CLOSE:
 		SendMessage(hwnd, WM_COMMAND, 2, lParam);
