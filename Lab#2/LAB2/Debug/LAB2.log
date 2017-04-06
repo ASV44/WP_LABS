@@ -1,25 +1,9 @@
-﻿Build started 04.04.2017 8:13:02.
-     1>Project "C:\Users\Sasha\Desktop\WP_LABS\Lab#2\LAB2\LAB2.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
-         Source.cpp
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(97): warning C4101: 'random_g' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(91): warning C4101: 'new_font' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(92): warning C4101: 'old_font' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(94): warning C4101: 'text_element' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(97): warning C4101: 'random_b' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(97): warning C4101: 'random_r' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(90): warning C4101: 'draw_struct' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(279): warning C4101: 'new_font' : unreferenced local variable
-     1>c:\users\sasha\desktop\wp_labs\lab#2\lab2\source.cpp(280): warning C4101: 'old_font' : unreferenced local variable
-       ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /l"0x0409" /nologo /fo"Debug\LAB21.res" LAB21.rc 
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Sasha\Desktop\WP_LABS\Lab#2\Debug\LAB2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Sasha\Desktop\WP_LABS\Lab#2\Debug\LAB2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Sasha\Desktop\WP_LABS\Lab#2\Debug\LAB2.lib" /MACHINE:X86 Debug\LAB21.res
-         Debug\Source.obj
-         LAB2.vcxproj -> C:\Users\Sasha\Desktop\WP_LABS\Lab#2\Debug\LAB2.exe
-     1>Done Building Project "C:\Users\Sasha\Desktop\WP_LABS\Lab#2\LAB2\LAB2.vcxproj" (Build target(s)).
+﻿Build started 07.04.2017 1:35:35.
+     1>Project "F:\FAF\WP\WP_LABS\Lab#2\LAB2\LAB2.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         LAB2.vcxproj -> F:\FAF\WP\WP_LABS\Lab#2\Debug\LAB2.exe
+     1>Done Building Project "F:\FAF\WP\WP_LABS\Lab#2\LAB2\LAB2.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.82
+Time Elapsed 00:00:00.59
