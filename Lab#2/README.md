@@ -1,6 +1,6 @@
-#Windows Programming
+# Windows Programming
 
-##LAB#1 Vdovicenco Alexandru
+## LAB#1 Vdovicenco Alexandru
 
 All development process of this laboratory work was based on Programming Windows by
 Charlez Petzold book, using Visual Studio IDE with standard libraries.
