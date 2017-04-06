@@ -213,10 +213,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case SC_MAXIMIZE:
-			SendMessage(hwnd, WM_COMMAND, 0, lParam);
+			SendMessage(hwnd, WM_COMMAND, 3, lParam);
 			break;
 		case SC_MINIMIZE:
 			SendMessage(hwnd, WM_COMMAND, 4, lParam);
+			break;
+		case SC_CLOSE:
+			SendMessage(hwnd, WM_COMMAND, 2, lParam);
 			break;
 		}
 		return 0;
