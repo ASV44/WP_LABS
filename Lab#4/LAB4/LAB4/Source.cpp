@@ -145,11 +145,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 		GetClientRect(hwnd, &rect);
 		hdc = BeginPaint(hwnd, &ps);
-		hdcBuff = CreateCompatibleDC(hdc);
+		/*hdcBuff = CreateCompatibleDC(hdc);
 		bitmapBuff = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
 		oldBuff = SelectObject(hdcBuff, bitmapBuff);
 		memoryHDC = CreateCompatibleDC(hdc);
-		FillRect(hdcBuff, &rect, (HBRUSH) GetStockObject(WHITE_BRUSH));
+		FillRect(hdcBuff, &rect, (HBRUSH) GetStockObject(WHITE_BRUSH));*/
 		//BitBlt(hdcBuff, g_ballInfo.x, g_ballInfo.y, g_ballInfo.width, g_ballInfo.height, hdcMem, 0, 0, SRCPAINT);
 		for (i = 0; i < figures_amount; i++)
 		{
@@ -158,19 +158,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			OutputDebugString(debug);
 			if (figures[i].figure_type == 0)
 			{
-				Ellipse(hdcBuff, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
+				Ellipse(hdc, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
 			}
 			else
 			{
-				Rectangle(hdcBuff, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
+				Rectangle(hdc, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
 			}
 			
 		}
 		//BitBlt(hdc, 0.65 * cxClient, 0.6 * cyClient, 0.45 * cxClient, 0.5 * cyClient, memoryHDC, 0, 0, SRCCOPY);
-		BitBlt(hdc, 0, 0, rect.right, rect.bottom, hdcBuff, 0, 0, SRCCOPY);
+		/*BitBlt(hdc, 0, 0, rect.right, rect.bottom, hdcBuff, 0, 0, SRCCOPY);
 		SelectObject(hdcBuff, oldBuff);
 		DeleteObject(hdcBuff);
-		DeleteDC(hdcBuff);
+		DeleteDC(hdcBuff);*/
 		EndPaint(hwnd, &ps);
 		return 0;
 	case WM_TIMER:
