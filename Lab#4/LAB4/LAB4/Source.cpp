@@ -107,8 +107,26 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			figures[i].height = height;
 			figures[i].x = (rand() % x_Margin) + width / 2;
 			figures[i].y = (rand() % y_Margin) + height / 2;
-			figures[i].dx = MOVE_DELTA;
-			figures[i].dy = MOVE_DELTA;
+			switch (rand() % 4)
+			{
+			case 0:
+				figures[i].dx = MOVE_DELTA;
+				figures[i].dy = MOVE_DELTA;
+				break;
+			case 1:
+				figures[i].dx = -MOVE_DELTA;
+				figures[i].dy = MOVE_DELTA;
+				break;
+			case 2:
+				figures[i].dx = MOVE_DELTA;
+				figures[i].dy = -MOVE_DELTA;
+				break;
+			case 3:
+				figures[i].dx = -MOVE_DELTA;
+				figures[i].dy = -MOVE_DELTA;
+				break;
+			}
+
 			updateMargins(&figures[i]);
 			figureBrushes[i] = CreateSolidBrush(RGB(rand() % 256, rand() % 256, rand() % 256));//CreateGradientBrush(RGB(rand() % 256, rand() % 256, rand() % 256), RGB(rand() % 256, rand() % 256, rand() % 256), hdc, redrawRect);
 			figures[i].figure_type = 0;
@@ -145,32 +163,33 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 		GetClientRect(hwnd, &rect);
 		hdc = BeginPaint(hwnd, &ps);
-		/*hdcBuff = CreateCompatibleDC(hdc);
+		hdcBuff = CreateCompatibleDC(hdc);
 		bitmapBuff = CreateCompatibleBitmap(hdc, rect.right, rect.bottom);
 		oldBuff = SelectObject(hdcBuff, bitmapBuff);
-		memoryHDC = CreateCompatibleDC(hdc);
+		FillRect(hdcBuff, &rect, (HBRUSH)GetStockObject(WHITE_BRUSH));
+		/*memoryHDC = CreateCompatibleDC(hdc);
 		FillRect(hdcBuff, &rect, (HBRUSH) GetStockObject(WHITE_BRUSH));*/
 		//BitBlt(hdcBuff, g_ballInfo.x, g_ballInfo.y, g_ballInfo.width, g_ballInfo.height, hdcMem, 0, 0, SRCPAINT);
 		for (i = 0; i < figures_amount; i++)
 		{
-			SelectObject(hdc, figureBrushes[i]);
+			SelectObject(hdcBuff, figureBrushes[i]);
 			sprintf_s(debug, "x%d=%d y%d=%d colision %d\n", i, figures[i].x, i, figures[i].y, colision);
 			OutputDebugString(debug);
 			if (figures[i].figure_type == 0)
 			{
-				Ellipse(hdc, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
+				Ellipse(hdcBuff, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
 			}
 			else
 			{
-				Rectangle(hdc, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
+				Rectangle(hdcBuff, figures[i].left, figures[i].top, figures[i].right, figures[i].bottom);
 			}
 			
 		}
 		//BitBlt(hdc, 0.65 * cxClient, 0.6 * cyClient, 0.45 * cxClient, 0.5 * cyClient, memoryHDC, 0, 0, SRCCOPY);
-		/*BitBlt(hdc, 0, 0, rect.right, rect.bottom, hdcBuff, 0, 0, SRCCOPY);
+		BitBlt(hdc, 0, 0, rect.right, rect.bottom, hdcBuff, 0, 0, SRCCOPY);
 		SelectObject(hdcBuff, oldBuff);
 		DeleteObject(hdcBuff);
-		DeleteDC(hdcBuff);*/
+		DeleteDC(hdcBuff);
 		EndPaint(hwnd, &ps);
 		return 0;
 	case WM_TIMER:
@@ -181,7 +200,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		UpdateFigures(figures, figures_amount, MOVE_DELTA, &rect);
 		colision = checkCollision(&figures, &figures_amount, &figureBrushes,rect, colision);
 		//SendMessage(hwnd, WM_PAINT, wParam, lParam);
-		RedrawWindow(hwnd, &rect, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ERASE);
+		RedrawWindow(hwnd, &rect, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 		ReleaseDC(hwnd, hdc);
 		return 0;
 	case WM_COMMAND:
@@ -276,6 +295,7 @@ void UpdateFigures(FIGUREINFO *figures,int figures_amount,int MOVE_DELTA,RECT* r
 	int i,j;
 	for (i = 0; i < figures_amount; i++)
 	{
+
 		figures[i].x += figures[i].dx;
 		figures[i].y += figures[i].dy;
 
